@@ -1,0 +1,2 @@
+import { useCallback, useEffect, useState } from "react";
+export function useLoad<T>(loader:()=>Promise<T>,deps:React.DependencyList=[]){const [data,setData]=useState<T|null>(null);const [loading,setLoading]=useState(true);const [error,setError]=useState<unknown>(null);const reload=useCallback(()=>{setLoading(true);setError(null);return loader().then(value=>{setData(value);return value;}).catch(err=>{setError(err);throw err;}).finally(()=>setLoading(false));},deps);useEffect(()=>{void reload().catch(()=>undefined);},[reload]);return {data,loading,error,reload};}
