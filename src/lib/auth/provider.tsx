@@ -1,3 +1,2 @@
-import type { ReactNode } from "react";
-/** Stable app-wide provider mount; Better Auth's client hook works standalone. */
+import type {ReactNode} from "react";
 export function AuthProvider({children}:{children:ReactNode}){return <>{children}</>;}
