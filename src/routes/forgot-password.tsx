@@ -1,0 +1,7 @@
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { CompanionMark } from "@/components/mark";
+import { Button } from "@/components/ui/button";
+import { Input, Label } from "@/components/ui/field";
+export const Route = createFileRoute("/forgot-password")({ component: Forgot });
+function Forgot(){const [email,setEmail]=useState("");const [done,setDone]=useState(false);return <main className="app-stage grid min-h-dvh place-items-center px-5 py-10"><div className="w-full max-w-sm"><CompanionMark className="size-10"/><h1 className="mt-5 font-display text-3xl">Reset password</h1>{done?<p className="mt-4 text-sm leading-relaxed text-ink-soft">If this address has an account, use Google or X to sign in, or try again later when email delivery is configured for this companion.</p>:<form className="mt-6 space-y-3" onSubmit={e=>{e.preventDefault();setDone(true);}}><p className="text-sm leading-relaxed text-muted">Password reset email is not sent from this environment. Sign in with Google or X, or return to the sign-in page.</p><div><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></div><Button type="submit" className="w-full">Continue</Button></form>}<p className="mt-5 text-center text-sm"><Link to="/login" className="text-teal">Back to sign in</Link></p></div></main>;}
