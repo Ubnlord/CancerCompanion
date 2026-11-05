@@ -1,0 +1,4 @@
+const ALLOWED=new Set(["grok.com","www.grok.com","chatgpt.com","www.chatgpt.com"]);
+export function isGrokEmbedderOrigin(value:string):boolean{try{const u=new URL(value);return u.protocol==="https:"&&(ALLOWED.has(u.hostname)||u.hostname.endsWith(".grok.com"));}catch{return false;}}
+export function isSandboxPreviewGuestHost(host:string):boolean{return host.endsWith(".grok-sandbox.com");}
+export function resolveParentEmbedderOrigin(topLevel:boolean,referrer:string,ancestorOrigin:string|null,guestHost:string):string|null{if(topLevel||!isSandboxPreviewGuestHost(guestHost))return null;const candidates=[ancestorOrigin,(()=>{try{return referrer?new URL(referrer).origin:null;}catch{return null;}})()];return candidates.find((x):x is string=>Boolean(x&&isGrokEmbedderOrigin(x)))??null;}
